@@ -16,7 +16,7 @@ let make = () => {
       </p>
       <p>
         {"Edit "->React.string}
-        <code> {"App.res"->React.string} </code>
+        <code> {"src/pages/Index.res"->React.string} </code>
         {" and save to test HMR updates."->React.string}
       </p>
       <textarea onInput={event => ReactEvent.Form.currentTarget(event)["value"]->Js.log}/>
