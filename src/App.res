@@ -1,7 +1,5 @@
 open Webapi.Dom
 
-%%raw(`import './App.css'`)
-
 module Router = {
   @react.component @module("preact-router")
   external make: (~url: string, ~children: React.element) => React.element = "Router"
@@ -11,6 +9,8 @@ module Link = {
   @react.component @module("preact-router")
   external make: (~href: string, ~children: React.element) => React.element = "Link"
 }
+
+%%raw(`import './App.css'`)
 
 // Auto generates routes from files under ./pages
 // https://vitejs.dev/guide/features.html#glob-import

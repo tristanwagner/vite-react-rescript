@@ -24,7 +24,9 @@
   "bs-dependencies": [
     "@rescript/react",
     "@ryyppy/rescript-promise",
-    "rescript-webapi"
+    "rescript-webapi",
+    "@glennsl/bs-json",
+    "bs-fetch"
   ],
   "bs-dev-dependencies": [
     "rescript-vitest"

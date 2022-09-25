@@ -6,6 +6,7 @@ import createReScriptPlugin from '@jihchi/vite-plugin-rescript';
 export default defineConfig({
   resolve: {
     alias: {
+      // alias so we can use preact with react bindings :O
       react: 'preact/compat',
       'react-dom': 'preact/compat'
     }
