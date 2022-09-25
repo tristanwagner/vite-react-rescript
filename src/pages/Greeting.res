@@ -9,11 +9,11 @@ let greeting = person =>
   }
 
 @react.component
-let make = () => {
-  <>
-    <p>{greeting(Student("Jim"))->React.string}</p>
-    <p>{greeting(Teacher)->React.string}</p>
-    <p>{greeting(Student("Tristan"))->React.string}</p>
-    <p>{greeting(Director)->React.string}</p>
+let make = (~path: string) => {
+  open Js.Array2
+  let persons = [Student("Jim"), Teacher, Director, Student("Tristan")]
+ <>
+  <Nav url={path} />
+    { persons->map(p => <p>{greeting(p)->React.string}</p>)->React.array }
   </>
 }

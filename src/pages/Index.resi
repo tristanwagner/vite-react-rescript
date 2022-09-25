@@ -1,2 +1,2 @@
 @react.component
-let make: unit => React.element
+let make: (~path: string) => React.element
