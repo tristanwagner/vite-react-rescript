@@ -3,11 +3,11 @@ type status =
   | Disabled
 
 @react.component
-let make = () => {
+let make = (~path: string) => {
   let (state, setState) = React.useState(() => Enabled)
   <>
+    <Nav url={path} />
     <h1>{"Toggle"->React.string}</h1>
-    <p>
       <button onClick={e => setState(s => s === Enabled ? Disabled : Enabled)}>
       {
         switch state {
@@ -16,7 +16,6 @@ let make = () => {
         }
       }
       </button>
-    </p>
   </>
 }
 
