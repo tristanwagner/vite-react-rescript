@@ -15,9 +15,8 @@ for i in 1 to 20 {
 }
 
 @react.component
-let make = (~path: string) => {
+let make = () => {
  <>
-  <Nav url={path} />
   {
     results->map(res => <p>{res->React.string}</p>)->React.array
   }

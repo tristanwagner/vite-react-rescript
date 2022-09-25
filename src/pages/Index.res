@@ -2,11 +2,9 @@
 %%raw(`import './Index.css'`)
 
 @react.component
-let make = (~path: string) => {
+let make = () => {
   let (count, setCount) = React.useState(() => 0)
-
   <>
-    <Nav url={path} />
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

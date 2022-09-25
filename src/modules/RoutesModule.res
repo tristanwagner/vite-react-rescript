@@ -1,8 +1,4 @@
-type route = {
-  name: string,
-  path: string,
-  component: unit => React.element,
-}
+open Global
 
 // Auto generates routes from files under ./pages
 // https://vitejs.dev/guide/features.html#glob-import
@@ -26,7 +22,7 @@ let routes = Js.Dict.keys(pages)->Js.Array2.map(path => {
 pages->Js.log
 routes->Js.log
 
-let makeRouteComponent = ({path, component: routeComp}: route) => {
+let makeRouteComponent = ({ name, path, component }: route) => {
   module T = {
     let makeProps: (
       ~key: string,
@@ -46,10 +42,15 @@ let makeRouteComponent = ({path, component: routeComp}: route) => {
       console.log("router route rendered", tmp)
       return tmp;
     }`)
-    let make = routeComp
+    let make = () => {
+      <>
+        <Nav routes={routes} url={path}/>
+        { component() }
+      </>
+    }
   }
 
-  <T key={path} path={path} />
+  <T key={name} path={path} />
 }
 
 let getRoutesComponents = () => routes->Js.Array2.map(makeRouteComponent)->React.array

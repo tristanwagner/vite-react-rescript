@@ -1,5 +1,5 @@
 @react.component
-let make = (~path: string) => {
+let make = () => {
   let (state, send) = React.useReducer(JokesModule.reducer, Initial)
 
   let fetchJokes = () => {
@@ -16,7 +16,6 @@ let make = (~path: string) => {
   }
 
   <>
-    <Nav url={path} />
     <h1>{"Jokes"->React.string}</h1>
     { switch state {
       | Initial => <button onClick={_ => fetchJokes()}> {"Fetch jokes"->React.string} </button>
