@@ -18,39 +18,10 @@ let routes = Js.Dict.keys(pages)->Js.Array2.map(path => {
   }
 })
 
-// TODO: remove
-pages->Js.log
-routes->Js.log
-
-let makeRouteComponent = ({ name, path, component }: route) => {
-  module T = {
-    let makeProps: (
-      ~key: string,
-      ~path: string,
-      unit,
-    ) => unit = %raw(`function (prim0, prim1, prim2) {
-      var tmp = {};
-      if (prim0 !== undefined) {
-        tmp.key = prim0;
-      }
-      if (prim1 !== undefined) {
-        tmp.path = prim1;
-      }
-      if (prim2 !== undefined) {
-        tmp.children = prim2;
-      }
-      console.log("router route rendered", tmp)
-      return tmp;
-    }`)
-    let make = () => {
-      <>
-        <Nav routes={routes} url={path}/>
-        { component() }
-      </>
+let rec formatPathname = (path: list<string>) =>
+  switch path {
+      | list{} => "/"
+      | list{a, ...rest} => "/" ++ a ++ (rest->List.length > 0 ? formatPathname(rest) : "")
     }
-  }
 
-  <T key={name} path={path} />
-}
-
-let getRoutesComponents = () => routes->Js.Array2.map(makeRouteComponent)->React.array
+let makeRoute = (pathname) => (component) => <><Nav routes={routes} url={pathname}/>{ component }</>
