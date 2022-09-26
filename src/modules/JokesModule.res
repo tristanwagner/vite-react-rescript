@@ -5,13 +5,18 @@ type joke = {
 }
 
 type stateContext = {
-  current: int,
-  jokes: array<joke>,
+  mutable current: int,
+  mutable jokes: array<joke>,
 }
 
-type states = Initial | Loading | Success(stateContext)
+let context = {
+  current: 0,
+  jokes: [],
+}
 
-type events = FetchJokes | FetchSuccess(stateContext)
+type states = Loading | Success(stateContext)
+
+type actions = FetchJokes | FetchSuccess(stateContext)
 
 module Decode = {
   open Json.Decode
@@ -33,12 +38,15 @@ let fetchJokes = () => {
   |> then_(json => json->Decode.jokes->resolve)
 }
 
-let reducer = (state, event) =>
-  switch (state, event) {
-    | (Initial, FetchJokes) => Loading
-    | (Loading, FetchSuccess(data)) => Success(data)
+let reducer = (state, action) =>
+  switch (state, action) {
+    | (Loading, FetchSuccess(data)) => {
+      // persist context trhought pages
+      context.current = data.current
+      context.jokes = data.jokes
+      Success(data)
+    }
     | (Success(_), FetchJokes) => Loading
-    | (Initial, FetchSuccess(_))
     | (Success(_), FetchSuccess(_))
     | (Loading, FetchJokes) => state
   }
