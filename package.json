@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "vite build",
+    "build": "NODE_ENV='production' vite build",
     "clean": "rescript clean -with-deps",
     "format": "rescript format -all",
     "serve": "vite preview",
