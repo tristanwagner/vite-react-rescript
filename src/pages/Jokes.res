@@ -1,28 +1,25 @@
 @react.component
 let make = () => {
-  let (state, send) = React.useReducer(JokesModule.reducer, Initial)
+  let (state, dispatch) = React.useReducer(JokesModule.reducer, Success(JokesModule.context))
 
   let fetchJokes = () => {
     open Js.Promise
-    send(FetchJokes)
-    let _ = JokesModule.fetchJokes()|>then_(jokes => {
-      let data: JokesModule.stateContext = {
-        current: 0,
-        jokes,
-      }
-      send(FetchSuccess(data))
-      data->resolve
-    })
+    dispatch(FetchJokes)
+    let _ = JokesModule.fetchJokes()
+      |>then_(jokes => {
+        let data: JokesModule.stateContext = { current: 0, jokes }
+        dispatch(FetchSuccess(data))
+        data->resolve
+      })
   }
 
   <>
     <h1>{"Jokes"->React.string}</h1>
+    <button onClick={_ => fetchJokes()}> {"Fetch jokes"->React.string} </button>
     { switch state {
-      | Initial => <button onClick={_ => fetchJokes()}> {"Fetch jokes"->React.string} </button>
-      | Loading => <span> {"Loading jokes.."->React.string} </span>
+      | Loading => <p> {"Loading jokes.."->React.string} </p>
       | Success(data) =>
         <div>
-          <button onClick={_ => fetchJokes()}> {"Fetch new jokes"->React.string} </button>
           {
             data.jokes->
               Js.Array2.mapi((j, index) => <p>{ (string_of_int(index + 1) ++ ". " ++ j.setup ++ " => " ++ j.punchline)->React.string}</p>)
