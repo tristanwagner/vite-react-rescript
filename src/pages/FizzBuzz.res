@@ -1,5 +1,3 @@
-open Js.Array2
-
 let fizzbuzz = (i) =>
   switch (mod(i, 3), mod(i, 5)){
     | (0, 0) => "FizzBuzz"
@@ -11,14 +9,14 @@ let fizzbuzz = (i) =>
 let results = []
 
 for i in 1 to 20 {
-  push(results, fizzbuzz(i))->ignore
+  results->Array.push(fizzbuzz(i))->ignore
 }
 
 @react.component
 let make = () => {
  <>
   {
-    results->map(res => <p>{res->React.string}</p>)->React.array
+    results->Array.map(res => <p>{res->React.string}</p>)->React.array
   }
  </>
 }

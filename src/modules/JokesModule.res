@@ -31,11 +31,10 @@ module Decode = {
 }
 
 let fetchJokes = () => {
-  open Js.Promise
-
+  open Promise
   Fetch.fetch("https://official-joke-api.appspot.com/jokes/programming/ten")
-  |> then_(Fetch.Response.json)
-  |> then_(json => json->Decode.jokes->resolve)
+  -> then(Fetch.Response.json)
+  -> then(json => json->Decode.jokes->resolve)
 }
 
 let reducer = (state, action) =>

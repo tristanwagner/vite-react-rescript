@@ -23,12 +23,11 @@
   },
   "bs-dependencies": [
     "@rescript/react",
-    "@ryyppy/rescript-promise",
+    "@rescript/core",
     "rescript-webapi",
     "@glennsl/bs-json",
     "bs-fetch"
   ],
-  "bs-dev-dependencies": [
-    "rescript-vitest"
-  ]
+  "bsc-flags": ["-open RescriptCore"],
+  "bs-dev-dependencies": ["rescript-vitest"]
 }

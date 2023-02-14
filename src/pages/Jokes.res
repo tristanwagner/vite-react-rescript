@@ -3,10 +3,10 @@ let make = () => {
   let (state, dispatch) = React.useReducer(JokesModule.reducer, Success(JokesModule.context))
 
   let fetchJokes = () => {
-    open Js.Promise
+    open Promise
     dispatch(FetchJokes)
     let _ = JokesModule.fetchJokes()
-      |>then_(jokes => {
+      ->then(jokes => {
         let data: JokesModule.stateContext = { current: 0, jokes }
         dispatch(FetchSuccess(data))
         data->resolve
@@ -22,7 +22,7 @@ let make = () => {
         <div>
           {
             data.jokes->
-              Js.Array2.mapi((j, index) => <p>{ (string_of_int(index + 1) ++ ". " ++ j.setup ++ " => " ++ j.punchline)->React.string}</p>)
+              Array.mapWithIndex((j, index) => <p>{ (string_of_int(index + 1) ++ ". " ++ j.setup ++ " => " ++ j.punchline)->React.string}</p>)
               ->React.array
           }
         </div>

@@ -10,9 +10,8 @@ let greeting = person =>
 
 @react.component
 let make = () => {
-  open Js.Array2
   let persons = [Student("Jim"), Teacher, Director, Student("Tristan")]
  <>
-    { persons->map(p => <p>{greeting(p)->React.string}</p>)->React.array }
+    { persons->Array.map(p => <p>{greeting(p)->React.string}</p>)->React.array }
   </>
 }
