@@ -30,11 +30,9 @@ module Decode = {
   let jokes = array(joke)
 }
 
-let fetchJokes = () => {
-  open Promise
-  Fetch.fetch("https://official-joke-api.appspot.com/jokes/programming/ten")
-  -> then(Fetch.Response.json)
-  -> then(json => json->Decode.jokes->resolve)
+let fetchJokes = async () => {
+  let res = await Fetch.fetch("https://official-joke-api.appspot.com/jokes/programming/ten")
+  (await res->Fetch.Response.json)->Decode.jokes
 }
 
 let reducer = (state, action) =>

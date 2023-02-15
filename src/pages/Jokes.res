@@ -2,20 +2,15 @@
 let make = () => {
   let (state, dispatch) = React.useReducer(JokesModule.reducer, Success(JokesModule.context))
 
-  let fetchJokes = () => {
-    open Promise
+  let fetchJokes = async () => {
     dispatch(FetchJokes)
-    let _ = JokesModule.fetchJokes()
-      ->then(jokes => {
-        let data: JokesModule.stateContext = { current: 0, jokes }
-        dispatch(FetchSuccess(data))
-        data->resolve
-      })
+    let jokes = await JokesModule.fetchJokes()
+    dispatch(FetchSuccess({ current: 0, jokes }))
   }
 
   <>
     <h1>{"Jokes"->React.string}</h1>
-    <button onClick={_ => fetchJokes()}> {"Fetch jokes"->React.string} </button>
+    <button onClick={_ => fetchJokes()->ignore}> {"Fetch jokes"->React.string} </button>
     { switch state {
       | Loading => <p> {"Loading jokes.."->React.string} </p>
       | Success(data) =>
