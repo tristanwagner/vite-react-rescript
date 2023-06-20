@@ -8,7 +8,7 @@ let make = () => {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p> {"Hello Vite + (P)React + ReScript!"->React.string} </p>
+        <p> {"Hello Vite + React + ReScript!"->React.string} </p>
         <p>
           <button onClick={_e => setCount(count => count + 1)}>
             {`count is: ${count->Int.toString}`->React.string}
