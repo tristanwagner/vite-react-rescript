@@ -4,7 +4,7 @@ let make = () => {
 
   let fetchJokes = async () => {
     dispatch(FetchJokes)
-    let jokes = await JokesModule.fetchJokes()
+    let jokes = await JokesModule.getJokes()
     dispatch(FetchSuccess({ current: 0, jokes }))
   }
 
@@ -17,7 +17,7 @@ let make = () => {
         <div>
           {
             data.jokes->
-              Array.mapWithIndex((j, index) => <p>{ (string_of_int(index + 1) ++ ". " ++ j.setup ++ " => " ++ j.punchline)->React.string}</p>)
+              Array.mapWithIndex((j, index) => <p key={string_of_int(index + 1)}>{ (string_of_int(index + 1) ++ ". " ++ j.setup ++ " => " ++ j.punchline)->React.string}</p>)
               ->React.array
           }
         </div>

@@ -12,6 +12,6 @@ let greeting = person =>
 let make = () => {
   let persons = [Student("Jim"), Teacher, Director, Student("Tristan")]
  <>
-    { persons->Array.map(p => <p>{greeting(p)->React.string}</p>)->React.array }
+    { persons->Array.mapWithIndex((person, index) => <p key={string_of_int(index)}>{greeting(person)->React.string}</p>)->React.array }
   </>
 }

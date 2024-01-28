@@ -22,13 +22,13 @@
     "version": 4,
     "mode": "automatic"
   },
+  "uncurried": false,
   "bs-dependencies": [
     "@rescript/react",
     "@rescript/core",
-    "rescript-webapi",
-    "@glennsl/bs-json",
-    "bs-fetch"
+    "@glennsl/rescript-json-combinators",
+    "@glennsl/rescript-fetch"
   ],
-  "bsc-flags": ["-open RescriptCore"],
+  "bsc-flags": ["-open RescriptCore", "-open JsonCombinators"],
   "bs-dev-dependencies": ["rescript-vitest"]
 }

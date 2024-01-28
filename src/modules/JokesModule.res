@@ -21,18 +21,23 @@ type actions = FetchJokes | FetchSuccess(stateContext)
 module Decode = {
   open Json.Decode
 
-  let joke = json => {
-    id: json|>field("id", int),
-    setup: json|>field("setup", string),
-    punchline: json|>field("punchline", string),
-  }
+  let joke = object(field => {
+    id: field.required("id", int),
+    setup: field.required("setup", string),
+    punchline: field.required("punchline", string),
+  })
 
-  let jokes = array(joke)
+  let jokes = (json) => json->decode(array(joke))->Result.getExn
 }
 
 let fetchJokes = async () => {
-  let res = await Fetch.fetch("https://official-joke-api.appspot.com/jokes/programming/ten")
-  (await res->Fetch.Response.json)->Decode.jokes
+  open Fetch
+  let res = await get("https://official-joke-api.appspot.com/jokes/programming/ten")
+  await res->Response.json
+}
+
+let getJokes = async () => {
+  (await fetchJokes())->Decode.jokes
 }
 
 let reducer = (state, action) =>

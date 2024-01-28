@@ -16,7 +16,7 @@ for i in 1 to 20 {
 let make = () => {
  <>
   {
-    results->Array.map(res => <p>{res->React.string}</p>)->React.array
+    results->Array.mapWithIndex((res, index) => <p key={string_of_int(index)}>{res->React.string}</p>)->React.array
   }
  </>
 }

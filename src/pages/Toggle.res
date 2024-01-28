@@ -7,7 +7,7 @@ let make = () => {
   let (state, setState) = React.useState(() => Enabled)
   <>
     <h1>{"Toggle"->React.string}</h1>
-      <button onClick={e => setState(s => s === Enabled ? Disabled : Enabled)}>
+      <button onClick={_ => setState(s => s === Enabled ? Disabled : Enabled)}>
       {
         switch state {
           | Enabled => React.string("Enabled")
